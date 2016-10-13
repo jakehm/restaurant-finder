@@ -18,7 +18,6 @@
     "react-addons-shallow-compare": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-geosuggest": "^2.0.0",
-    "react-google-maps": "^6.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.16.2"
