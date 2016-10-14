@@ -11,6 +11,7 @@ export default class Searchbox extends React.Component {
     return (
       <Geosuggest
         placeholder="Enter location"
+        autoActivateFirstSuggest={false}
         onSuggestSelect={this.onSuggestSelect.bind(this)} />
     );
   }
