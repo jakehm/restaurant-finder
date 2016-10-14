@@ -11,22 +11,11 @@ export default class Searchbox extends React.Component {
     return (
       <Geosuggest
         placeholder="Enter location"
-        onSuggestSelect={this.onSuggestSelect} />
+        onSuggestSelect={this.onSuggestSelect.bind(this)} />
     );
   }
 
   onSuggestSelect(suggest){
-    let request = {
-      location: suggest.location,
-      radius: '5000'
-    };
-    let map = new google.maps.Map(document.createElement('div'));
-    let service = new google.maps.places.PlacesService(map);
-    service.nearbySearch(request, callback);
-    function callback(results, status){
-      if(status == google.maps.places.PlacesServiceStatus.OK){
-        this.props.onPlaces(results);
-      }
-    }
+    this.props.onSubmit(suggest)
   } 
 }

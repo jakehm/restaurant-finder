@@ -7,7 +7,7 @@ export default class PlacesList extends React.Component {
       <ul>
       {this.props.places.map((place) => {
         return (
-          <li>{place.name}</li>
+          <li key={place.id}>{place.name}</li>
         )
       })}
       </ul>
