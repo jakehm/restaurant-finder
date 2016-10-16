@@ -2,8 +2,6 @@ import React from 'react';
 import Searchbox from './searchbox';
 import PlacesList from './placesList';
 import Rcslider from 'rc-slider';
-import Slider from './slider';
-import ReactSlider from 'react-slider';
 
 require('./styles/rcslider.css');
 
