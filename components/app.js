@@ -2,7 +2,10 @@ import React from 'react';
 import Searchbox from './searchbox';
 import PlacesList from './placesList';
 import Rcslider from 'rc-slider';
-require('rc-slider/assets/index.css');
+import Slider from './slider';
+import ReactSlider from 'react-slider';
+
+require('./styles/rcslider.css');
 
 export default class App extends React.Component {
   constructor() {
@@ -15,6 +18,7 @@ export default class App extends React.Component {
     }
   }
   render(){
+
     return(
       <div>
         <Searchbox onSubmit={this.handleSubmit.bind(this)} />
