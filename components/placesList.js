@@ -21,8 +21,9 @@ export default class PlacesList extends React.Component {
             {place.price_level 
               ? 'price level: ' + place.price_level 
               : null}
-            </p>
-            <p>
+            {(place.price_level && place.rating)
+              ? ', '
+              : null}
             {place.rating 
               ? 'rating: ' + place.rating 
               : null}

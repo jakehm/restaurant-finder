@@ -19,6 +19,17 @@ export default class App extends React.Component {
 
     return(
       <div>
+        <img 
+          src={require('./assets/current-location.png')} 
+          onClick={this.handleGeolocation.bind(this)}
+          style={{  
+            width: 50,
+            height: 50,
+            position: 'relative',
+            float: 'left',
+            cursor: 'pointer'
+          }}
+        />
         <Searchbox onSubmit={this.handleSubmit.bind(this)} />
         <hr />
         <p> Distance: {this.state.radius} miles</p>
@@ -69,6 +80,28 @@ export default class App extends React.Component {
       isLoading: true
     });
     this.update();
+  }
+  handleGeolocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.setState({
+          location: {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          },
+          isLoading: true
+        })
+        this.update();
+      })
+    }
+  }
+  reverseGeocode(latlng) {
+    let geocoder=new google.maps.Geocoder;
+    geocoder.geocode({location: latlng}, (result, status) => {
+      if (status === 'OK') {
+        return results[1].formatted_address
+      }
+    })
   }
   convertToMiles(meters) {
     return (meters*0.000621371)
