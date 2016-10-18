@@ -12,7 +12,6 @@ export default class PlacesList extends React.Component {
       {this.props.places.map((place) => {
         let link = 'https://www.google.com/maps/search/'
           + (place.name + '+' + place.vicinity).replace(/ /g,"+");
-        console.log(link);  
         return (
           <li key={place.id}>
             <p>{place.name}</p>

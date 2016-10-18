@@ -1,8 +1,8 @@
 import React from 'react';
-import Searchbox from './searchbox';
 import PlacesList from './placesList';
 import Rcslider from 'rc-slider';
-
+import Geosuggest from 'react-geosuggest';
+require("./styles/geosuggest.css");
 require('./styles/rcslider.css');
 
 export default class App extends React.Component {
@@ -30,7 +30,11 @@ export default class App extends React.Component {
             cursor: 'pointer'
           }}
         />
-        <Searchbox onSubmit={this.handleSubmit.bind(this)} />
+        <Geosuggest
+          placeholder="Enter location"
+          autoActivateFirstSuggest={false}
+          onSuggestSelect={this.handleSubmit.bind(this)}
+          ref="geosuggest" />
         <hr />
         <p> Distance: {this.state.radius} miles</p>
         <Rcslider
@@ -47,7 +51,7 @@ export default class App extends React.Component {
       </div>
     )
   }
-  update() {
+  getPlaces() {
     let request = {
       location: this.state.location,
       radius: this.convertToMeters(this.state.radius),
@@ -72,14 +76,15 @@ export default class App extends React.Component {
       radius: value,
       isLoading: true
     });
-    this.update();
+    this.getPlaces();
   }
   handleSubmit(query) {
     this.setState({ 
       location: query.location,
-      isLoading: true
+      isLoading: true,
+      geolocated: false
     });
-    this.update();
+    this.getPlaces();
   }
   handleGeolocation() {
     if (navigator.geolocation) {
@@ -89,17 +94,20 @@ export default class App extends React.Component {
             lat: position.coords.latitude,
             lng: position.coords.longitude
           },
-          isLoading: true
+          isLoading: true,
+          geolocated: true
         })
-        this.update();
+        this.getPlaces();
+        this.refs.geosuggest.update(this.reverseGeocode(this.state.location));
       })
     }
   }
   reverseGeocode(latlng) {
     let geocoder=new google.maps.Geocoder;
-    geocoder.geocode({location: latlng}, (result, status) => {
+    geocoder.geocode({location: latlng}, (results, status) => {
       if (status === 'OK') {
-        return results[1].formatted_address
+        console.log(results)
+        return results[0].formatted_address
       }
     })
   }
