@@ -98,16 +98,16 @@ export default class App extends React.Component {
           geolocated: true
         })
         this.getPlaces();
-        this.refs.geosuggest.update(this.reverseGeocode(this.state.location));
+        this.reverseGeocode(this.state.location);
       })
     }
   }
   reverseGeocode(latlng) {
     let geocoder=new google.maps.Geocoder;
-    geocoder.geocode({location: latlng}, (results, status) => {
+    geocoder.geocode({'location': latlng}, (results, status) => {
       if (status === 'OK') {
-        console.log(results)
-        return results[0].formatted_address
+        //return results[0].formatted_address;
+        this.refs.geosuggest.update(results[0].formatted_address);
       }
     })
   }
