@@ -4,6 +4,7 @@ import Rcslider from 'rc-slider';
 import Geosuggest from 'react-geosuggest';
 require("./styles/geosuggest.css");
 require('./styles/rcslider.css');
+require('./styles/style.css');
 
 export default class App extends React.Component {
   constructor() {
@@ -19,29 +20,22 @@ export default class App extends React.Component {
 
     return(
       <div className="container">
-        <div className="row">
-        <div className="col-xs-2">
+      <div className="row">
+        <button 
+          className="btn btn-default"
+          onClick={this.handleGeolocation.bind(this)} >
         <img 
           src={require('./assets/current-location.png')} 
-          onClick={this.handleGeolocation.bind(this)}
-          style={{  
-            width: 'auto',
-            height: 'auto',
-            maxwidth: 50,
-            maxheight: 50,
-            position: 'relative',
-            float: 'left',
-            cursor: 'pointer'
-          }}
-        />
-        </div>
-        <div className="col-xs-10">
+          style={{
+            maxHeight: 20,
+            maxWidth: 20
+          }} />
+        </button>
         <Geosuggest
           placeholder="Enter location"
           autoActivateFirstSuggest={false}
           onSuggestSelect={this.handleSubmit.bind(this)}
           ref="geosuggest" />
-        </div>
         </div>
         <hr />
         <p> Distance: {this.state.radius} miles</p>
@@ -49,13 +43,11 @@ export default class App extends React.Component {
           min={0} max={this.convertToMiles(50000)}
           defaultValue={this.state.radius}
           onAfterChange={this.handleSlider.bind(this)}
-          step={0.5}
-        />
+          step={0.5} />
         <hr />
         <PlacesList 
           places={this.state.places}
-          isLoading={this.state.isLoading}
-        />
+          isLoading={this.state.isLoading} />
       </div>
     )
   }
