@@ -18,23 +18,31 @@ export default class App extends React.Component {
   render(){
 
     return(
-      <div>
+      <div className="container">
+        <div className="row">
+        <div className="col-xs-2">
         <img 
           src={require('./assets/current-location.png')} 
           onClick={this.handleGeolocation.bind(this)}
           style={{  
-            width: 50,
-            height: 50,
+            width: 'auto',
+            height: 'auto',
+            maxwidth: 50,
+            maxheight: 50,
             position: 'relative',
             float: 'left',
             cursor: 'pointer'
           }}
         />
+        </div>
+        <div className="col-xs-10">
         <Geosuggest
           placeholder="Enter location"
           autoActivateFirstSuggest={false}
           onSuggestSelect={this.handleSubmit.bind(this)}
           ref="geosuggest" />
+        </div>
+        </div>
         <hr />
         <p> Distance: {this.state.radius} miles</p>
         <Rcslider
