@@ -1,4 +1,3 @@
-# react-toolbox-example
 
 ### Getting Started
 1. Clone this repository
