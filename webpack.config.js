@@ -30,8 +30,10 @@ module.exports = {
         loader: 'babel',
         query: { presets: ['es2015', 'stage-0', 'react'] }
       }, {
-        test: /(\.scss|\.css)$/,
+        test: /(\.scss)$/,
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass')
+      }, {
+        test: /\.css$/, loader: "style-loader!css-loader"
       }
     ]
   },
