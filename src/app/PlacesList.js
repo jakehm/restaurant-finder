@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, ListItem } from 'react-toolbox/lib/list';
+import { List, ListItem, ListDivider } from 'react-toolbox/lib/list';
 
 export default class PlacesList extends React.Component {
   render() { 
@@ -10,43 +10,26 @@ export default class PlacesList extends React.Component {
       return (<p> Nothing here. </p>)
 
     return (
-      <div>
         <List selectable ripple>
           {this.props.places.map((place) => {
             let link = 'https://www.google.com/maps/search/'
               + (place.name + '+' + place.vicinity).replace(/ /g,"+");
-
-
-            let priceLevel = place.price_level ? (
-              <span>{Array(place.price_level).join('$')} &middot;</span>
-            ) : (
-              null
-            )
             
-            let priceRating = place.rating ? (
-              <span>{place.rating} &middot;</span>
-            ) : (
-              null  
-            )
-
-            let linkElement = <a href={link}>Link</a>
-            
-            let placeDetails = (
-              <div>
-                {place.vicinity}<br />
-                {priceRating}{priceLevel}{linkElement}
-              </div>
-            )
-
+            let caption = place.name
+            if (place.rating)
+              caption += ' \xB7 ' + place.rating
+            if (place.price_level)
+              caption += ' \xB7 ' + Array(place.price_level+1).join('$')
             return (
-              <ListItem key={place.id}
-                caption={place.name}
-                legend={placeDetails} 
+              <ListItem 
+                key={place.id}
+                caption={caption}
+                legend={place.vicinity}
+                to={link}
               />
             )
           })}
         </List>
-      </div>
     )
   }
 }

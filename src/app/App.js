@@ -19,6 +19,7 @@ export default class App extends React.Component {
   }
 
   getPlaces() {
+    let places = []
     let request = {
       location: this.state.location,
       radius: this.convertToMeters(this.state.radius),
@@ -27,12 +28,17 @@ export default class App extends React.Component {
     let map = new google.maps.Map(document.createElement('div'));
     let service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, callback.bind(this));
-    function callback(results, status){
-      if(status == google.maps.places.PlacesServiceStatus.OK){
+    function callback(results, status, pagination){
+      if(status == google.maps.places.PlacesServiceStatus.OK){        
+        places = [...places, ...results]
         this.setState({ 
-          places: results,
+          places: places,
           isLoading: false
         });
+        
+        if (pagination.hasNextPage)
+          pagination.nextPage()
+
       } else {
         this.setState({ isLoading: false })
       }  
